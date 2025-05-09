@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# 远程服务器信息
-MONGODB_VERSION="7.0.12"
-MONGOSH_VERSION="2.2.12"
-
 # 检查是否为 root 用户
 if [ "$EUID" -ne 0 ]; then 
     echo "请使用 root 用户运行此脚本"
     exit 1
 fi
+
+# 远程服务器信息
+MONGODB_VERSION="7.0.12"
+MONGOSH_VERSION="2.2.12"
 
 CURRENT_DIR=$PWD
 # 创建必要的目录
@@ -78,7 +78,7 @@ WantedBy=multi-user.target
 EOF
 
 # 添加环境变量
-echo "配置环境变量..."
+echo "配置 mongodb 环境变量..."
 cat > /etc/profile.d/mongodb.sh << EOF
 export PATH=\$PATH:${MONGODB_INSTALL_DIR}/bin
 EOF
@@ -91,7 +91,7 @@ mv -f $CURRENT_DIR/mongosh-${MONGOSH_VERSION}-linux-x64/* $MONGOSH_INSTALL_DIR
 rm -rf $CURRENT_DIR/mongosh-${MONGOSH_VERSION}-linux-x64
 
 # 添加环境变量
-echo "配置环境变量..."
+echo "配置 mongosh 环境变量..."
 cat > /etc/profile.d/mongosh.sh << EOF
 export PATH=\$PATH:${MONGOSH_INSTALL_DIR}/bin
 EOF
@@ -107,6 +107,7 @@ systemctl start mongodb.service
 systemctl enable mongodb.service
 
 # 等待服务启动
+echo "等待 mongodb 服务启动..."
 sleep 5
 
 # 初始化管理员用户
@@ -125,8 +126,11 @@ echo "启用安全认证..."
 sed -i 's/authorization: disabled/authorization: enabled/' /etc/mongod.conf
 
 # 重启服务以应用安全设置
+echo "重启 mongodb 服务..."
 systemctl restart mongodb.service
 
+# 等待服务启动
+echo "等待 mongodb 服务重启..."
 sleep 5
 
 # 创建应用数据库和用户
@@ -151,8 +155,8 @@ firewall-cmd --reload
 
 # 验证安装
 echo "验证安装..."
-mongosh --version
-mongod --version
+echo "mongosh version: " $(mongosh --version)
+echo "mongosh version: " $(mongod --version)
 
 echo "检查服务状态..."
 systemctl status mongodb.service
@@ -161,5 +165,5 @@ echo "MongoDB 安装完成！"
 echo "管理员用户: admin"
 echo "应用数据库用户: swlws"
 echo "请使用以下命令测试连接："
-echo "管理员连接: mongosh \"mongodb://127.0.0.1:27017\" --username admin --authenticationDatabase admin"
-echo "应用用户连接: mongosh \"mongodb://127.0.0.1:27017/swlws\" --username swlws"
+echo "管理员连接: mongosh --host 127.0.0.1:27017 --username admin --password 'admin@swlws!!!' --authenticationDatabase admin"
+echo "应用用户连接: mongosh --host 127.0.0.1:27017 --username swlws --password 'swlws@123!!!' --authenticationDatabase swlws"
