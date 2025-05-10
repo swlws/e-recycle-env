@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # MongoDB 工具版本
-MONGODB_TOOLS_VERSION="100.9.4"
+MONGODB_TOOLS_VERSION="100.12.0"
 
 # 安装目录
 MONGOSH_INSTALL_DIR="/usr/local/mongotools"
