@@ -10,6 +10,9 @@ fi
 NGINX_CONF_DIR="/etc/nginx"
 CURRENT_DIR="$PWD/nginx-config"
 
+chmod 600 /root/e-recycle-env/cert/swlws.site_bundle.crt
+chmod 600 /root/e-recycle-env/cert/swlws.site.key
+
 echo "开始覆盖 Nginx 配置..."
 
 # 备份原有配置
