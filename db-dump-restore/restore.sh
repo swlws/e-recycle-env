@@ -49,3 +49,5 @@ else
     echo "❌ 数据恢复失败，请检查日志"
     exit 1
 fi
+
+echo "🎉 恢复完成！"

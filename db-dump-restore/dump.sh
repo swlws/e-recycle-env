@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# === 锁文件机制，防止并发运行 ===
+LOCK_FILE="/tmp/mongo_restore.lock"
+
+if [ -f "$LOCK_FILE" ]; then
+    echo "⚠️ 上一次恢复仍在运行，跳过本次执行：$(date)"
+    exit 0
+fi
+
+# 设置锁 + 确保退出时删除
+trap "rm -f $LOCK_FILE" EXIT
+touch "$LOCK_FILE"
+
 # === MongoDB 配置 ===
 MONGODB_HOST="127.0.0.1"
 MONGODB_PORT="27017"
