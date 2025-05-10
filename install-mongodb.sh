@@ -8,7 +8,6 @@ fi
 
 # 远程服务器信息
 MONGODB_VERSION="7.0.12"
-MONGOSH_VERSION="2.2.12"
 
 CURRENT_DIR=$PWD
 # 创建必要的目录
@@ -16,10 +15,6 @@ echo "创建必要的目录..."
 MONGODB_INSTALL_DIR="/usr/local/mongodb"
 rm -rf $MONGODB_INSTALL_DIR
 mkdir -p $MONGODB_INSTALL_DIR
-
-MONGOSH_INSTALL_DIR="/usr/local/mongosh"
-rm -rf $MONGOSH_INSTALL_DIR
-mkdir -p $MONGOSH_INSTALL_DIR
 
 mkdir -p /var/lib/mongodb
 mkdir -p /var/log/mongodb
@@ -84,19 +79,6 @@ export PATH=\$PATH:${MONGODB_INSTALL_DIR}/bin
 EOF
 source /etc/profile.d/mongodb.sh
 
-# 安装 Mongosh
-echo "正在安装 Mongosh..."
-tar -zxvf $CURRENT_DIR/lib/mongosh-${MONGOSH_VERSION}-linux-x64.tgz
-mv -f $CURRENT_DIR/mongosh-${MONGOSH_VERSION}-linux-x64/* $MONGOSH_INSTALL_DIR
-rm -rf $CURRENT_DIR/mongosh-${MONGOSH_VERSION}-linux-x64
-
-# 添加环境变量
-echo "配置 mongosh 环境变量..."
-cat > /etc/profile.d/mongosh.sh << EOF
-export PATH=\$PATH:${MONGOSH_INSTALL_DIR}/bin
-EOF
-source /etc/profile.d/mongosh.sh
-
 # 设置服务权限
 chmod 755 /lib/systemd/system/mongodb.service
 
@@ -155,8 +137,7 @@ firewall-cmd --reload
 
 # 验证安装
 echo "验证安装..."
-echo "mongosh version: " $(mongosh --version)
-echo "mongosh version: " $(mongod --version)
+echo "mongod version: " $(mongod --version)
 
 echo "检查服务状态..."
 systemctl status mongodb.service
