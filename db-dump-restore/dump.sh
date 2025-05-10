@@ -12,6 +12,8 @@ fi
 trap "rm -f $LOCK_FILE" EXIT
 touch "$LOCK_FILE"
 
+export PATH=/usr/local/mongotools:$PATH
+
 # === MongoDB 配置 ===
 MONGODB_HOST="127.0.0.1"
 MONGODB_PORT="27017"
