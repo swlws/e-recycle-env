@@ -10,7 +10,7 @@ MONGODB_DB="swlws"
 echo "开始清理 MongoDB 数据..."
 
 # 要删除的集合列表，用逗号分隔
-COLLECTION_LIST="test,demo"
+COLLECTION_LIST="test,t_log"
 
 # 清理数据
 mongosh --host $MONGODB_HOST:$MONGODB_PORT \

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 远程服务器信息
-REMOTE_HOST="root@127.0.0.1"
+REMOTE_HOST="root@47.95.159.234"
 REMOTE_DIR="/root/e-recycle-env"
 
 # 创建远程目录
@@ -18,9 +18,9 @@ rsync -avz --progress \
 
 # 设置脚本权限
 echo "设置脚本权限..."
-ssh $REMOTE_HOST "chmod +x ${REMOTE_DIR}/install-mongo.sh"
+ssh $REMOTE_HOST "chmod +x ${REMOTE_DIR}/install.sh"
 
 echo "文件上传完成！"
 echo "你现在可以通过 SSH 连接到服务器并运行安装脚本："
 echo "ssh $REMOTE_HOST"
-echo "cd ${REMOTE_DIR} && ./install-mongo.sh"
+echo "cd ${REMOTE_DIR} && ./install.sh"
