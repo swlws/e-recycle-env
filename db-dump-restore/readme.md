@@ -9,5 +9,6 @@ crontab -e
 ```
 
 ```corn
-*/30 * * * * /bin/bash /home/youruser/mongo_restore.sh >> /home/youruser/mongo_restore.log 2>&1
+*/30 * * * * /bin/bash /root/e-recycle-env/db-dump-restore/dump.sh >> /root/mongo_backups/mongo_dump.log 2>&1
+*/30 * * * * /bin/bash /root/e-recycle-env/db-dump-restore/restore.sh >> /root/mongo_backups/mongo_restore.log 2>&1
 ```
