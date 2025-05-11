@@ -22,10 +22,10 @@ select choice in "${options[@]}"; do
     fi
 done
 
+echo "已选择服务器: $REMOTE_HOST ($SERVER_KEY)"
+
 # 设置远程目录
 REMOTE_DIR="/root/e-recycle-env"
-
-echo "已选择服务器: $REMOTE_HOST ($SERVER_KEY)"
 
 # 创建远程目录
 echo "创建远程目录..."
