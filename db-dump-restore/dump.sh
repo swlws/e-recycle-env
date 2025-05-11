@@ -15,7 +15,7 @@ touch "$LOCK_FILE"
 export PATH=/usr/local/mongotools:$PATH
 
 # === MongoDB 配置 ===
-MONGODB_HOST="127.0.0.1"
+MONGODB_HOST="swlws.site"
 MONGODB_PORT="27017"
 MONGODB_USER="swlws"
 MONGODB_PASSWORD="swlws@123!!!"
