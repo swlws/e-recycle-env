@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 远程服务器信息
-REMOTE_HOST="root@47.95.159.234"
+REMOTE_HOST="root@127.0.0.1"
 REMOTE_DIR="/root/e-recycle-env"
 
 # 创建远程目录
