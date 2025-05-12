@@ -54,4 +54,4 @@ fi
 
 echo "✅ MongoDB 环境安装完成！"
 echo "你可以使用以下命令连接数据库："
-echo "应用用户连接: mongosh --host 127.0.0.1:27017 --username swlws --password 'swlws@123!!!' --authenticationDatabase swlws"
+echo "应用用户连接: mongosh --host 127.0.0.1:27017 --username swlws --password 'swlws@XXX' --authenticationDatabase swlws"
