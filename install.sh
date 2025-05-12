@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-chmod +x db-install/*.sh
+chmod +x install-db/*.sh
 chmod +x db-data/*.sh
 chmod +x db-dump-restore/*.sh
 
@@ -14,7 +14,7 @@ echo "开始安装 MongoDB 环境..."
 
 # 1. 安装 MongoDB 工具
 echo "1. 安装 MongoDB 工具..."
-./db-install/mongodb-tools.sh
+./install-db/mongodb-tools.sh
 if [ $? -ne 0 ]; then
     echo "❌ MongoDB 工具安装失败"
     exit 1
@@ -22,7 +22,7 @@ fi
 
 # 2. 安装 MongoDB Shell
 echo "2. 安装 MongoDB Shell..."
-./db-install/mongosh.sh
+./install-db/mongosh.sh
 if [ $? -ne 0 ]; then
     echo "❌ MongoDB Shell 安装失败"
     exit 1
@@ -30,7 +30,7 @@ fi
 
 # 3. 安装 MongoDB
 echo "3. 安装 MongoDB..."
-./db-install/mongodb.sh
+./install-db/mongodb.sh
 if [ $? -ne 0 ]; then
     echo "❌ MongoDB 安装失败"
     exit 1
@@ -41,6 +41,14 @@ echo "4. 初始化测试数据..."
 ./db-data/init.sh
 if [ $? -ne 0 ]; then
     echo "❌ 测试数据初始化失败"
+    exit 1
+fi
+
+# 5. 安装 Node.js
+echo "5. 安装 Node.js..."
+./install-nodejs/index.sh
+if [ $? -ne 0 ]; then
+    echo "❌ Node.js 安装失败"
     exit 1
 fi
 
