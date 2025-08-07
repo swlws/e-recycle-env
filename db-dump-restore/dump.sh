@@ -42,6 +42,25 @@ mongodump \
 
 if [ $? -eq 0 ]; then
   echo "✅ 备份成功：$BACKUP_DIR"
+  
+  # 定义不带日期的备份目录
+  BACKUP_DIR_NO_DATE="${BACKUP_BASE_DIR}/${TARGET_DB}"
+  
+  # 创建不带日期的备份目录
+  mkdir -p "$BACKUP_DIR_NO_DATE"
+  
+  # 清空不带日期的备份目录
+  rm -rf "$BACKUP_DIR_NO_DATE"/*
+  
+  # 拷贝带日期的备份到不带日期的目录
+  cp -r "$BACKUP_DIR"/* "$BACKUP_DIR_NO_DATE"
+  
+  if [ $? -eq 0 ]; then
+    echo "✅ 成功将备份拷贝到不带日期的目录：$BACKUP_DIR_NO_DATE"
+  else
+    echo "❌ 拷贝备份到不带日期的目录失败"
+    exit 1
+  fi
 else
   echo "❌ 备份失败，请检查连接或权限"
   exit 1
